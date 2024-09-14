@@ -2,12 +2,12 @@ package datafile
 
 import (
 	"bufio"
+	"fmt"
 	"os"
-	"strconv"
 )
 
-func GetFloats(filename string) ([]float64, error) {
-	var numbers []float64
+func GetFloats(filename string) ([]string, error) {
+	var numbers []string
 	file, err := os.Open(filename)
 	if err != nil {
 		return numbers, err
@@ -15,10 +15,7 @@ func GetFloats(filename string) ([]float64, error) {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		number, err := strconv.ParseFloat(scanner.Text(), 64)
-		if err != nil {
-			return numbers, err
-		}
+		number := scanner.Text()
 		numbers = append(numbers, number)
 	}
 
@@ -31,4 +28,8 @@ func GetFloats(filename string) ([]float64, error) {
 		return numbers, scanner.Err()
 	}
 	return numbers, nil
+}
+
+func SayHello() {
+	fmt.Println("Hello")
 }

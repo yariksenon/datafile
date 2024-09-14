@@ -7,28 +7,28 @@ import (
 )
 
 func GetFloats(filename string) ([]float64, error) {
-	var storage []float64
+	var numbers []float64
 	file, err := os.Open(filename)
 	if err != nil {
-		return nil, err
+		return numbers, err
 	}
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		temp, err := strconv.ParseFloat(scanner.Text(), 64)
+		number, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
-			return nil, err
+			return numbers, err
 		}
-		storage = append(storage, temp)
+		numbers = append(numbers, number)
 	}
 
 	err = file.Close()
 	if err != nil {
-		return nil, err
+		return numbers, err
 	}
 
 	if scanner.Err() != nil {
-		return nil, scanner.Err()
+		return numbers, scanner.Err()
 	}
-	return storage, nil
+	return numbers, nil
 }
